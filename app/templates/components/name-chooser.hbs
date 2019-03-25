@@ -1,0 +1,13 @@
+<h2>Please choose names for both players</h2>
+
+<div>
+  Player 1:
+  {{input type="text" value=player1 focus-out=(action "updateName" "player1")}}
+</div>
+
+<div>
+  Player 2:
+  {{input type="text" value=player2 focus-out=(action "updateName" "player2")}}
+</div>
+
+<button onclick={{action "save"}}>Save</button>

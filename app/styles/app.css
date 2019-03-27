@@ -1,0 +1,27 @@
+.GameBoard {
+  display: flex;
+  flex-direction: row;
+}
+
+.GameColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.GameCell {
+  width: 100px;
+  height: 100px;
+  background-color: #e7e7e7;
+  border: 1px solid black;
+}
+
+/* https://davidwalsh.name/css-circles */
+.Circle {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
+
+.white { background-color: white; }
+.red { background-color: red; }
+.black { background-color: black; }

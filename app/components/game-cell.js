@@ -5,11 +5,11 @@ export default Component.extend({
   classNames: ['GameCell'],
 
   color: null,
-  c: null,
-  r: null,
+  colIdx: null,
+  rowIdx: null,
   onClick: () => {},
 
   click() {
-    this.onClick(this.c, this.r);
+    this.onClick(this.colIdx, this.rowIdx);
   }
 });

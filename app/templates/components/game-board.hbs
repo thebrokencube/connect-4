@@ -1,16 +1,17 @@
 <div>Current Player: {{currentPlayer}}</div>
 
-<div class="GameBoard">
-  {{#each board key="@index" as |col c|}}
-    <div class="GameColumn">
-      {{#each col key="@index" as |cell r|}}
-        <GameCell
-          @color={{cell.color}}
-          @c={{c}}
-          @r={{r}}
-          @onClick={{action "onClick"}}
-        />
-      {{/each}}
-    </div>
-  {{/each}}
+<div class="GameBoardContainer">
+  <div class="GameBoard">
+    {{#each board key="@index" as |column colIdx|}}
+      <div class="GameColumn">
+        {{#each column key="@index" as |cell|}}
+          <GameCell
+            @color={{cell.color}}
+            @colIdx={{colIdx}}
+            @onClick={{action "onClick"}}
+          />
+        {{/each}}
+      </div>
+    {{/each}}
+  </div>
 </div>

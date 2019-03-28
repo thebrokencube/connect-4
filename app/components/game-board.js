@@ -2,20 +2,20 @@ import Component from '@ember/component';
 import { A } from '@ember/array';
 import EmberObject from '@ember/object';
 
-const WHITE = 'white';
+const EMPTY = 'empty';
 const RED = 'red';
 const BLACK = 'black';
 
-function generateCell() {
-  return EmberObject.create({ color: WHITE });
-}
-
 function generateRow(numRows) {
-  return A( [...new Array(numRows).keys()].map(() => generateCell()) );
+  return A(
+    Array.from(Array(numRows).keys()).map(() => EmberObject.create({ color: EMPTY }))
+  );
 }
 
 function generateBoard({ numColumns = 7, numRows = 6 } = {}) {
-  return A( [...new Array(numColumns).keys()].map(c => generateRow(numRows)) );
+  return A(
+    Array.from(Array(numColumns).keys()).map(() => generateRow(numRows))
+  );
 }
 
 export default Component.extend({
@@ -37,7 +37,6 @@ export default Component.extend({
   },
 
   didRender() {
-    this.checkScore();
     if (this.winner !== null) {
       alert(`${this.winner} Wins!`);
       return this.reset();
@@ -45,19 +44,21 @@ export default Component.extend({
   },
 
   actions: {
-    onClick(col, initialRow) {
-      const row = this.calculateOpenCell(col);
-      if (row === null) { return; }
+    onClick(colIdx) {
+      const rowIdx = this.calculateOpenCell(colIdx);
+      if (rowIdx === null) { return; }
 
-      const cell = this.board[col][row];
+      const cell = this.board[colIdx][rowIdx];
       cell.set('color', this.playerColor());
 
+      // we check score before toggling the player to ensure that we record the correct winner
+      this.checkScore();
       this.togglePlayer();
     }
   },
 
-  calculateOpenCell(col) {
-    const idx = this.board[col].findIndex(cell => cell.color !== WHITE);
+  calculateOpenCell(colIdx) {
+    const idx = this.board[colIdx].findIndex(cell => cell.color !== EMPTY);
 
     if (idx === -1) {
       return this.numRows - 1;
@@ -106,7 +107,7 @@ export default Component.extend({
       for (let col = 0; col < this.numColumns; col++) {
         currentColor = this.board[col][row].color;
 
-        if (lastColor === null || (currentColor !== WHITE && lastColor === currentColor)) {
+        if (lastColor === null || (currentColor !== EMPTY && lastColor === currentColor)) {
           consecutiveCount++;
         } else {
           consecutiveCount = 1;
@@ -132,7 +133,7 @@ export default Component.extend({
       for (let row = 0; row < this.numRows; row++) {
         currentColor = this.board[col][row].color;
 
-        if (lastColor === null || (currentColor !== WHITE && lastColor === currentColor)) {
+        if (lastColor === null || (currentColor !== EMPTY && lastColor === currentColor)) {
           consecutiveCount++;
         } else {
           consecutiveCount = 1;

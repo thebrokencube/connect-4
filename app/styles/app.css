@@ -1,6 +1,14 @@
+.GameBoardContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 .GameBoard {
   display: flex;
   flex-direction: row;
+  background-color: lightgray;
+  padding: 10px;
 }
 
 .GameColumn {
@@ -11,17 +19,16 @@
 .GameCell {
   width: 100px;
   height: 100px;
-  background-color: #e7e7e7;
-  border: 1px solid black;
+  padding: 10px 0 0 10px;
+  background-color: yellow;
 }
 
-/* https://davidwalsh.name/css-circles */
 .Circle {
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
 }
 
-.white { background-color: white; }
+.empty { background-color: lightgray; }
 .red { background-color: red; }
 .black { background-color: black; }

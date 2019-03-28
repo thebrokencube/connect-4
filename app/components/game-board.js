@@ -89,8 +89,12 @@ export default Component.extend({
     if (this.winner !== null) { return; }
 
     // check left diagonals
+    this.checkLeftDiagonals();
+    if (this.winner !== null) { return; }
 
     // check right diagonals
+    this.checkRightDiagonals();
+    if (this.winner !== null) { return; }
 
   },
 
@@ -145,5 +149,92 @@ export default Component.extend({
       }
     }
     return null;
+  },
+
+  checkLeftDiagonals() {
+    let startingIndices = []
+    // going up the left side of the board
+    for (let i = this.numRows - 1; i >= 0; i--) {
+      startingIndices.push([0, i])
+    }
+    // going left to right across the top of the board
+    for (let i = 0; i < this.numColumns; i++) {
+      startingIndices.push([i, 0]);
+    }
+
+    let consecutiveCount;
+    let lastColor;
+    let currentColor;
+    let col;
+    let row;
+
+    for (let i = 0; i < startingIndices.length; i++) {
+      col = startingIndices[i][0];
+      row = startingIndices[i][1];
+
+      consecutiveCount = 0;
+      lastColor = null;
+      currentColor = null;
+
+      while (col < this.numColumns && row < this.numRows) {
+        currentColor = this.board[col][row].color;
+
+        if (lastColor === null || (currentColor !== EMPTY && lastColor === currentColor)) {
+          consecutiveCount++;
+        } else {
+          consecutiveCount = 1;
+        }
+
+        if (consecutiveCount === 4) { return this.set('winner', this.currentPlayer); }
+
+        lastColor = currentColor;
+        col++;
+        row++;
+      }
+    }
+  },
+
+  checkRightDiagonals() {
+    let startingIndices = []
+    // going up the right side of the board
+    for (let i = this.numRows - 1; i >= 0; i--) {
+      startingIndices.push([this.numColumns-1, i])
+    }
+    // going right to left across the top of the board
+    for (let i = this.numColumns - 1; i >= 0; i--) {
+      startingIndices.push([i, 0]);
+    }
+    console.log('STARTING INDICES', startingIndices);
+
+    let consecutiveCount;
+    let lastColor;
+    let currentColor;
+    let col;
+    let row;
+
+    for (let i = 0; i < startingIndices.length; i++) {
+      col = startingIndices[i][0];
+      row = startingIndices[i][1];
+
+      consecutiveCount = 0;
+      lastColor = null;
+      currentColor = null;
+
+      while (col >= 0 && row < this.numRows) {
+        currentColor = this.board[col][row].color;
+
+        if (lastColor === null || (currentColor !== EMPTY && lastColor === currentColor)) {
+          consecutiveCount++;
+        } else {
+          consecutiveCount = 1;
+        }
+
+        if (consecutiveCount === 4) { return this.set('winner', this.currentPlayer); }
+
+        lastColor = currentColor;
+        col--;
+        row++;
+      }
+    }
   },
 });

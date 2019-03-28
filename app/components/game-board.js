@@ -13,8 +13,12 @@ export default Component.extend({
 
   allCoordinates: null,
 
+  player1: null,
+  player2: null,
   currentPlayer: null,
   winner: null,
+
+  onWinner: () => {},
 
   init() {
     this._super();
@@ -34,7 +38,8 @@ export default Component.extend({
 
   didRender() {
     if (this.winner !== null) {
-      alert(`${this.winner} Wins!`);
+      const winningPlayer = this.winner === RED ? this.player1 : this.player2;
+      alert(`${winningPlayer} Wins!`);
       return this.reset();
     }
   },

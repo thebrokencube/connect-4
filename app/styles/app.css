@@ -32,3 +32,30 @@
 .empty { background-color: lightgray; }
 .red { background-color: red; }
 .black { background-color: black; }
+
+.PlayerStatus {
+  display: flex;
+  justify-content: space-between;
+  width: 600px;
+  margin: 0 auto;
+}
+
+.PlayerCircle {
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+}
+
+.Player {
+  font-size: 24px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  width: 100px;
+}
+
+.Player1 { color: red; }
+.Player2 { color: black; }
+
+.Player1.current-player { border: 3px solid red; }
+.Player2.current-player { border: 3px solid black; }
